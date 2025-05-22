@@ -552,3 +552,86 @@ button:disabled {
     min-width: 180px;
   }
 }
+
+/* Course Search Styles */
+.courses-section {
+  margin-bottom: 2rem;
+}
+
+.course-input-group {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.search-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.search-btn:hover {
+  background-color: #218838;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.remove-btn:hover {
+  background-color: #c82333;
+}
+
+.course-details {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid #dee2e6;
+  margin-top: 0.5rem;
+}
+
+.course-details p {
+  margin: 0.5rem 0;
+  color: #495057;
+}
+
+.course-details strong {
+  color: #2c3e50;
+  margin-right: 0.5rem;
+}
+
+.add-course-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.add-course-btn:hover {
+  background-color: #138496;
+}

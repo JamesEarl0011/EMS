@@ -11,6 +11,7 @@ import {
   createStudentEnrollment,
   getStudentEvaluation,
   getStudentCourses,
+  getOfferedCourse,
 } from "../controllers/studentController.js";
 
 const router = Router();
@@ -41,5 +42,9 @@ router.post("/enrollment", createStudentEnrollment);
 // * Course Management
 // ? Get currently enrolled courses
 router.get("/courses", getStudentCourses);
+
+// * Course Search
+// ? Search for offered courses by EDP code
+router.get("/offered-courses/:edpCode", getOfferedCourse);
 
 export default router;

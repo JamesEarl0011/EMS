@@ -49,16 +49,45 @@ const UserManagement = () => {
   };
 
   const handleEdit = (user) => {
-    switch (user.role) {
-      case "student":
-        navigate(`/admin/mis/users/edit-student/${user.studentId}`);
-        break;
-      case "teacher":
-        navigate(`/admin/mis/users/edit-teacher/${user.facultyId}`);
-        break;
-      case "admin":
-        navigate(`/admin/mis/users/edit-admin/${user.adminId}`);
-        break;
+    if (!user || !user.role) {
+      setError("Invalid user data");
+      return;
+    }
+
+    try {
+      let editPath = "";
+      let userId = "";
+
+      switch (user.role) {
+        case "student":
+          if (!user.studentId) {
+            throw new Error("Student ID not found");
+          }
+          userId = user.studentId;
+          editPath = "edit-student";
+          break;
+        case "teacher":
+          if (!user.facultyId) {
+            throw new Error("Faculty ID not found");
+          }
+          userId = user.facultyId;
+          editPath = "edit-teacher";
+          break;
+        case "admin":
+          if (!user.adminId) {
+            throw new Error("Admin ID not found");
+          }
+          userId = user.adminId;
+          editPath = "edit-admin";
+          break;
+        default:
+          throw new Error("Invalid user role");
+      }
+
+      navigate(`/admin/mis/users/${editPath}/${userId}`);
+    } catch (err) {
+      setError(err.message || "Failed to edit user");
+      console.error("Error navigating to edit page:", err);
     }
   };
 

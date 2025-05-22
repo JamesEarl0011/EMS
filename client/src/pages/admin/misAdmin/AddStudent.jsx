@@ -74,13 +74,85 @@ const AddStudent = () => {
         try {
           const response = await api.get(`/admin/mis/users/${id}`);
           const userData = response.data;
+
+          // Ensure all required fields are present
+          if (!userData || !userData.role) {
+            throw new Error("Invalid user data received");
+          }
+
+          // Set form data with default values for missing fields
           setFormData({
-            name: userData.name,
-            email: userData.email,
-            role: userData.role,
-            isActive: userData.isActive,
-            studentId: userData.studentId,
-            studentInfo: userData.studentInfo,
+            name: userData.name || "",
+            email: userData.email || "",
+            role: userData.role || "student",
+            isActive: userData.isActive ?? true,
+            studentId: userData.studentId || "",
+            studentInfo: {
+              programCode: userData.studentInfo?.programCode || "",
+              yearEnrolled:
+                userData.studentInfo?.yearEnrolled ||
+                new Date().getFullYear().toString(),
+              yearLevel: userData.studentInfo?.yearLevel || 1,
+              demographicProfile: {
+                gender:
+                  userData.studentInfo?.demographicProfile?.gender || "male",
+                dateOfBirth:
+                  userData.studentInfo?.demographicProfile?.dateOfBirth || "",
+                personWithDisability:
+                  userData.studentInfo?.demographicProfile
+                    ?.personWithDisability || false,
+                civilStatus:
+                  userData.studentInfo?.demographicProfile?.civilStatus || "",
+                placeOfBirth:
+                  userData.studentInfo?.demographicProfile?.placeOfBirth || "",
+                religion:
+                  userData.studentInfo?.demographicProfile?.religion || "",
+                parents: userData.studentInfo?.demographicProfile?.parents || [
+                  { role: "", name: "" },
+                  { role: "", name: "" },
+                ],
+                address: userData.studentInfo?.demographicProfile?.address || [
+                  {
+                    provinceAddress: "",
+                    cityAddress: "",
+                  },
+                ],
+                contactInformation: userData.studentInfo?.demographicProfile
+                  ?.contactInformation || [
+                  {
+                    mobileNumber: "",
+                    landLineNumber: "",
+                  },
+                ],
+                supportingStudies:
+                  userData.studentInfo?.demographicProfile?.supportingStudies ||
+                  "parents",
+                isEmployed:
+                  userData.studentInfo?.demographicProfile?.isEmployed || false,
+                company: userData.studentInfo?.demographicProfile?.company || {
+                  name: "",
+                  address: "",
+                },
+                educationalBackground: userData.studentInfo?.demographicProfile
+                  ?.educationalBackground || [
+                  {
+                    elementary: "",
+                    secondary: "",
+                    isTransferree: false,
+                    college: {
+                      name: "",
+                      lastSemesterAttended: 0,
+                      course: "",
+                      dateGraduated: "",
+                      extraCurricularActivities: "",
+                    },
+                  },
+                ],
+                otherInformation:
+                  userData.studentInfo?.demographicProfile?.otherInformation ||
+                  "",
+              },
+            },
           });
         } catch (err) {
           setError(
@@ -158,8 +230,8 @@ const AddStudent = () => {
   // Add this function to process the parents array before submission
   const processParentsArray = (parentsData) => {
     // Filter out any parent entries with role "none" or empty role
-    return parentsData.filter(parent => 
-      parent.role && parent.role !== "none" && parent.role !== ""
+    return parentsData.filter(
+      (parent) => parent.role && parent.role !== "none" && parent.role !== ""
     );
   };
 
@@ -188,7 +260,9 @@ const AddStudent = () => {
             placeOfBirth: formData.studentInfo.demographicProfile.placeOfBirth,
             religion: formData.studentInfo.demographicProfile.religion,
             // Process parents array to remove invalid entries
-            parents: processParentsArray(formData.studentInfo.demographicProfile.parents),
+            parents: processParentsArray(
+              formData.studentInfo.demographicProfile.parents
+            ),
             address: [
               {
                 provinceAddress:
@@ -201,8 +275,7 @@ const AddStudent = () => {
             ],
             contactInformation: [
               {
-                emailAddress:
-                  formData.email,
+                emailAddress: formData.email,
                 mobileNumber:
                   formData.studentInfo.demographicProfile.contactInformation[0]
                     .mobileNumber,
@@ -481,7 +554,9 @@ const AddStudent = () => {
                 value={formData.studentInfo.demographicProfile.parents[0].name}
                 onChange={handleChange}
                 placeholder="Enter name"
-                disabled={!formData.studentInfo.demographicProfile.parents[0].role}
+                disabled={
+                  !formData.studentInfo.demographicProfile.parents[0].role
+                }
               />
             </div>
             <div className="user-form-group">
@@ -493,7 +568,9 @@ const AddStudent = () => {
                 name="studentInfo.demographicProfile.parents[1].role"
                 value={formData.studentInfo.demographicProfile.parents[1].role}
                 onChange={handleChange}
-                disabled={!formData.studentInfo.demographicProfile.parents[0].role}
+                disabled={
+                  !formData.studentInfo.demographicProfile.parents[0].role
+                }
               >
                 <option value="">Select Role (Optional)</option>
                 <option value="father">Father</option>
@@ -512,7 +589,9 @@ const AddStudent = () => {
                 value={formData.studentInfo.demographicProfile.parents[1].name}
                 onChange={handleChange}
                 placeholder="Enter name"
-                disabled={!formData.studentInfo.demographicProfile.parents[0].role}
+                disabled={
+                  !formData.studentInfo.demographicProfile.parents[0].role
+                }
               />
             </div>
           </div>

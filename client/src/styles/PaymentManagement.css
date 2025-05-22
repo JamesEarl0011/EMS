@@ -1,86 +1,90 @@
 .payment-management {
-  padding: 20px;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
+}
+
+.header h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .table-container {
-  overflow-x: auto;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
 }
 
 .payments-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1000px;
-}
-
-.payments-table th,
-.payments-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.9rem;
 }
 
 .payments-table th {
-  background-color: #f8fafc;
+  background-color: #f1f3f5;
+  color: #495057;
   font-weight: 600;
-  color: #475569;
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.payments-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  color: #495057;
 }
 
 .payments-table tr:hover {
-  background-color: #f8fafc;
+  background-color: #f8f9fa;
 }
 
 .status-pending {
-  background-color: #fef3c7;
-  color: #92400e;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-}
-
-.status-partial {
-  background-color: #dbeafe;
-  color: #1e40af;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.875rem;
+  background-color: #ffeeba;
+  color: #856404;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .status-paid {
-  background-color: #dcfce7;
-  color: #166534;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.875rem;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .update-btn {
-  background-color: #3498db;
+  background-color: #007bff;
   color: white;
-  padding: 6px 12px;
   border: none;
-  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
 }
 
 .update-btn:hover {
-  background-color: #2980b9;
+  background-color: #0056b3;
 }
 
 /* Modal Styles */
 .modal {
-  width: 100vw;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -92,71 +96,127 @@
 
 .modal-content {
   background: white;
-  padding: 24px;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 600px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .modal-content h2 {
-  margin-bottom: 20px;
   color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  color: #4b5563;
+  margin-bottom: 0.5rem;
+  color: #495057;
   font-weight: 500;
 }
 
 .form-group select,
 .form-group input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #495057;
+  transition: border-color 0.2s;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .modal-buttons {
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 .modal-buttons button {
-  padding: 8px 16px;
+  flex: 1;
+  padding: 0.75rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-size: 1rem;
+  transition: all 0.2s;
 }
 
 .modal-buttons button[type="submit"] {
-  background-color: #3498db;
+  background-color: #007bff;
   color: white;
 }
 
+.modal-buttons button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
 .modal-buttons button[type="button"] {
-  background-color: #e2e8f0;
-  color: #4b5563;
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.modal-buttons button[type="button"]:hover {
+  background-color: #dee2e6;
 }
 
 .modal-buttons button:disabled {
-  opacity: 0.5;
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
 .error-message {
-  background-color: #fee2e2;
-  color: #991b1b;
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 16px;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .payments-table {
+    font-size: 0.85rem;
+  }
+
+  .payments-table th,
+  .payments-table td {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .payment-management {
+    padding: 1rem;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .payments-table {
+    min-width: 1000px;
+  }
 }

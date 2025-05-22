@@ -158,11 +158,19 @@ export const getStudentEnrollment = async (req, res) => {
 // ? Create new enrollment for student
 export const createStudentEnrollment = async (req, res) => {
   try {
-    const { courses } = req.body;
+    const { studentId, semester, yearLevel, courses } = req.body;
+
+    // * Validate required fields
+    if (!studentId || !semester || !yearLevel || !courses || !courses.length) {
+      return res.status(400).json({
+        message:
+          "Missing required fields: studentId, semester, yearLevel, and courses are required",
+      });
+    }
 
     // * Check if student already has an enrollment
     const existingEnrollment = await Enrollment.findOne({
-      studentId: req.user.studentId,
+      studentId: studentId,
       status: { $in: ["Pending", "Approved"] },
     });
 
@@ -172,17 +180,32 @@ export const createStudentEnrollment = async (req, res) => {
       });
     }
 
+    // * Validate that all courses exist
+    const edpCodes = courses.map((course) => course.edpCode);
+    const existingCourses = await OfferedCourse.find({
+      edpCode: { $in: edpCodes },
+    });
+
+    if (existingCourses.length !== edpCodes.length) {
+      return res.status(400).json({
+        message: "One or more courses do not exist",
+      });
+    }
+
     // * Create new enrollment
     const enrollment = new Enrollment({
-      studentId: req.user.studentId,
-      courses: courses.map((edpCode) => ({ edpCode })),
+      studentId,
+      semester,
+      yearLevel,
+      courses: courses.map((course) => ({ edpCode: course.edpCode })),
       status: "Pending",
     });
 
     await enrollment.save();
-    res
-      .status(201)
-      .json({ message: "Enrollment created successfully", enrollment });
+    res.status(201).json({
+      message: "Enrollment created successfully",
+      enrollment,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -224,6 +247,34 @@ export const getStudentCourses = async (req, res) => {
     });
 
     res.json(courseDetails);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// ? Search for offered course by EDP code
+export const getOfferedCourse = async (req, res) => {
+  try {
+    const { edpCode } = req.params;
+
+    // * Find the offered course
+    const offeredCourse = await OfferedCourse.findOne({ edpCode });
+
+    if (!offeredCourse) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    // * Return course details
+    res.json({
+      edpCode: offeredCourse.edpCode,
+      courseCode: offeredCourse.courseCode,
+      courseName: offeredCourse.courseName,
+      schedule: offeredCourse.schedule,
+      teacherAssigned: offeredCourse.teacherAssigned,
+      units: offeredCourse.units,
+      maxStudents: offeredCourse.maxStudents,
+      currentEnrolled: offeredCourse.currentEnrolled,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import redisClient from "../config/redis.js";
 
 // * Token configuration
-const ACCESS_TOKEN_EXPIRY = "15m"; // 15 minutes
+const ACCESS_TOKEN_EXPIRY = "24h"; // Changed from 15m to 24h
 const REFRESH_TOKEN_EXPIRY = "7d"; // 7 days
 
 // ? Generate access token
