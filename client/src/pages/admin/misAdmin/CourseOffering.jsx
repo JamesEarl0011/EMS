@@ -92,6 +92,9 @@ const CourseOffering = () => {
         `/admin/mis/courses/offered/${selectedCourse.edpCode}/enroll`,
         {
           studentId,
+          midtermGrade: 0,
+          finalGrade: 0,
+          remarks: "N/A",
         }
       );
 

@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
+import { useState } from "react";
 import "../../styles/AdminDashboard.css"; // Using the same CSS as MISAdminDashboard
 import CoursesManagement from "./CoursesManagement";
 import GradeManagement from "./GradeManagement";
@@ -9,7 +7,6 @@ import ClearanceManagement from "./ClearanceManagement";
 const TeacherDashboard = () => {
   // * State for active tab
   const [activeTab, setActiveTab] = useState("courses");
-  const navigate = useNavigate();
 
   // * Handle logout
   const handleLogout = () => {
@@ -68,7 +65,9 @@ const TeacherDashboard = () => {
       </div>
 
       {/* * Main content area */}
-      <div className="admin-main-content">{renderActiveComponent()}</div>
+      <div className="admin-main-content">
+        <div className="content-container">{renderActiveComponent()}</div>
+      </div>
     </div>
   );
 };

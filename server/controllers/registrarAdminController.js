@@ -2,7 +2,7 @@
 // @ file: Handles all registrar admin operations
 
 import Evaluation from "../models/Evaluation.js";
-import {} from "../models/User.js";
+import { User } from "../models/User.js";
 
 // * Student Management Controllers
 
@@ -25,13 +25,31 @@ export const getAllStudents = async (req, res) => {
 export const getStudentEvaluation = async (req, res) => {
   try {
     const { studentId } = req.params;
+
+    // Get student information
+    const student = await User.findOne({ studentId })
+      .select("name studentInfo")
+      .lean();
+
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    // Get evaluation
     const evaluation = await Evaluation.findOne({ studentId });
 
     if (!evaluation) {
       return res.status(404).json({ message: "Evaluation not found" });
     }
 
-    res.json(evaluation);
+    // Combine student info with evaluation data
+    const response = {
+      ...evaluation.toObject(),
+      studentName: student.name,
+      yearEnrolled: student.studentInfo?.yearEnrolled,
+    };
+
+    res.json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
