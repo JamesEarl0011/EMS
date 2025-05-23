@@ -2,6 +2,10 @@ import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import "../styles/Login.css";
+import "../assets/ucbuilding.jpg";
+import acaflowLogo from "../assets/acaflow-logo.png";
+// Import logos (make sure to place these in your assets folder)
+import ucLogo from "../assets/uclogo.jpg"; // Replace with your actual UC logo
 
 const Login = () => {
   const navigate = useNavigate();
@@ -151,33 +155,31 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-form-container">
+            <div className="logos">
+              <img src={ucLogo} alt="UC Logo" className="uc-logo" />
+              <img src={acaflowLogo} alt="Acaflow Logo" className="acaflow-logo" />
+            </div>
         <h1>Welcome to Acaflow</h1>
         <form onSubmit={handleSubmit} className="login-form">
           {error && <div className="error-message">{error}</div>}
 
           <div className="login-group">
-            <label htmlFor="role">Role</label>
             <select
               id="role"
               name="role"
               value={formData.role}
               onChange={handleChange}
               disabled={loading}
+              className="select-role"
             >
               <option value="student">Student</option>
               <option value="teacher">Teacher</option>
               <option value="admin">Admin</option>
             </select>
+            <label htmlFor="role" className="select-label"></label>
           </div>
 
           <div className="login-group">
-            <label htmlFor="id">
-              {formData.role === "admin"
-                ? "Admin ID"
-                : formData.role === "teacher"
-                ? "Faculty ID"
-                : "Student ID"}
-            </label>
             <input
               type="text"
               id="id"
@@ -186,11 +188,18 @@ const Login = () => {
               onChange={handleChange}
               disabled={loading}
               required
+              placeholder=" "
             />
+            <label htmlFor="id">
+              {formData.role === "admin"
+                ? "Admin ID"
+                : formData.role === "teacher"
+                ? "Faculty ID"
+                : "Student ID"}
+            </label>
           </div>
 
           <div className="login-group password-group">
-            <label htmlFor="password">Password</label>
             <div className="password-input-container">
               <input
                 type={showPassword ? "text" : "password"}
@@ -200,7 +209,9 @@ const Login = () => {
                 onChange={handleChange}
                 disabled={loading}
                 required
+                placeholder=" "
               />
+              <label htmlFor="password">Password</label>
               <button
                 type="button"
                 onClick={togglePassword}

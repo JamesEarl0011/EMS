@@ -1,154 +1,418 @@
-/* Root Variables */
+/* Variables */
 :root {
-  --primary: #001d3d;
-  --secondary: #00b4d8;
-  --accent: #ffb703;
-  --background: #f8f9fa;
-  --text-primary: #212529;
-  --text-secondary: #f8f9fa;
-  --shadow: #001d3d1a;
-  --font: Avenir;
+  --primary: #294c67;
+  --secondary: #fff;
+  --error: #c53030;
+  --yellow: #f3e81b;
 }
 
+body {
+  background-image: url('../assets/ucbuilding.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Role buttons container */
+.role-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+/* Main container */
 .login-container {
   display: flex;
-  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
   align-items: center;
-  color: var(--text-secondary);
-  font-family: var(--font);
+  justify-content: center;
 }
 
+/* Background building decorations - removed */
+.login-container::before,
+.login-container::after {
+  display: none; /* Remove the teal/blue building silhouettes */
+}
+
+/* Login form container */
 .login-form-container {
-  background: var(--primary);
-  padding: 2rem;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 1.25rem;
+  width: 380px;
+  max-width: 380px;
+  margin: auto;
+  z-index: 10;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 3.25rem;
+  max-height: 90vh;
 }
 
+/* Header styles */
 .login-form-container h1 {
   text-align: center;
-  margin-bottom: 2rem;
+  color: var(--primary);
+  margin: 0.25rem 0 1rem 0;
+  font-weight: 600;
+  font-size: 1.5rem;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+/* Error message */
+.error-message {
+  background-color: #fee6e6;
+  border: 1px solid #f5c2c2;
+  color: var(--error);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
 }
 
+/* Form group styling */
 .login-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 340px;
+  position: relative;
 }
 
 .login-group label {
-  font-weight: 600;
+  position: absolute;
+  left: 0.75rem;
+  top: 0.85rem;
+  color: #888;
+  font-size: 1rem;
+  transition: all 0.s ease;
+  pointer-events: none;
   text-align: left;
+  background-color: transparent;
 }
 
-.login-group select {
-  text-align: center;
-}
-
+/* Form inputs */
 .login-group input,
 .login-group select {
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-family: var(--font);
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 0.75rem 0.75rem;
+  border: 1px solid #d1d9e6;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background-color: #f9fafc;
+  color: #333;
+}
+
+/* Floating label effect */
+.login-group input:focus,
+.login-group input:not(:placeholder-shown) {
+  padding-top: 1.1rem;
+  padding-bottom: 0.4rem;
+  border-color: var(--primary);
+}
+
+.login-group input:focus + label,
+.login-group input:not(:placeholder-shown) + label {
+  top: 0.5rem;
+  font-size: 0.65rem;
+  color: var(--primary);
+  font-weight: 600;
+  transform: translateY(-50%);
+  animation: floatLabel 0.2s ease forwards;
+}
+
+@keyframes floatLabel {
+  0% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
 }
 
 .login-group input:focus,
-.login-group select:focus {
+.password-input-container input:focus {
   outline: none;
-  border-color: #0066cc;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(41, 76, 103, 0.1);
+  background-color: white;
+  animation: highlightInput 0.3s ease forwards;
 }
 
+@keyframes highlightInput {
+  0% {
+    background-color: #f9fafc;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+/* Select field styling */
+.login-group .select-role {
+  padding-left: 0.75rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23294c67' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+}
+
+.login-group .select-label {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.3rem;
+  font-size: 0.65rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Password group specific styling */
 .password-group {
   position: relative;
 }
 
 .password-input-container {
-  display: flex;
-  gap: 0.5rem;
+  position: relative;
+  width: 100%;
 }
 
 .password-input-container input {
-  flex: 1;
+  width: 100%;
 }
 
+.password-input-container label {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.85rem;
+  color: #888;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  text-align: left;
+  background-color: transparent;
+}
+
+.password-input-container input:focus + label,
+.password-input-container input:not(:placeholder-shown) + label {
+  top: 0.3rem;
+  font-size: 0.65rem;
+  color: var(--primary);
+  font-weight: 600;
+  transform: translateY(-50%);
+  animation: floatLabel 0.3s ease forwards;
+}
+
+/* Login form */
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+/* Password toggle button */
 .password-toggle {
-  padding: 0.5rem 1rem;
-  background: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 0.9rem;
-  color: #333;
-  transition: background-color 0.3s ease;
+  padding: 0;
+  z-index: 5;
 }
 
-.password-toggle:hover:not(:disabled) {
-  background: #e0e0e0;
+.password-toggle:hover {
+  color: #1a3a55;
 }
 
+/* Button styling */
 .login-button {
-  padding: 1rem;
-  background-color: #0066cc;
+  width: 100%;
+  max-width: 340px;
+  padding: 0.65rem;
+  background-color: #001f3f;
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
+  transition: all 0.2s ease;
+  margin-top: 0.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.login-button:hover:not(:disabled) {
-  background-color: #0052a3;
+.login-button:hover {
+  background-color: #00152a;
 }
 
 .login-button:disabled {
-  background-color: #ccc;
+  background-color: #a0aec0;
   cursor: not-allowed;
 }
 
-.error-message {
-  background-color: #fee;
-  color: #c00;
-  padding: 0.8rem;
-  border-radius: 4px;
-  border: 1px solid #fcc;
-  margin-bottom: 1rem;
+/* Forgot password styling */
+.forgot-password {
   text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  max-width: 340px;
+  width: 100%;
 }
 
-/* Disabled state styles */
-input:disabled,
-select:disabled,
-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.forgot-password a {
+  color: #001f3f;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-weight: 500;
 }
 
-/* Add responsive design */
-@media (max-width: 480px) {
+.forgot-password a:hover {
+  color: #003366;
+  text-decoration: underline;
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
   .login-form-container {
-    margin: 1rem;
-    padding: 1.5rem;
+    max-width: 380px;
+    max-height: 85vh;
   }
+}
 
-  .login-form-container h1 {
-    font-size: 1.5rem;
-  }
+.logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
 
-  .form-group input,
-  .form-group select,
-  .login-button {
-    padding: 0.7rem;
-  }
+/* UC logo styling */
+.uc-logo {
+  max-width: 120px;
+  height: auto;
+}
+
+.acaflow-logo {
+  max-width: 120px;
+  height: auto;
+}
+
+
+/* Footer links */
+.footer-links {
+  margin-top: auto; /* Push to bottom of flex container */
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.footer-links a {
+  color: #2a6384;
+  margin: 0 0.5rem;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Style for role selection buttons */
+.role-button {
+  padding: 0.7rem;
+  background-color: white;
+  color: #294c67;
+  border: 1px solid #294c67;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.role-button:hover {
+  background-color: #f0f5fa;
+  border-color: #1a3a55;
+}
+
+/* Form indicator */
+.form-indicator {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 0;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Back button */
+.back-button {
+  position: absolute;
+  left: 15px;
+  background: transparent !important;
+  border: none;
+  color: white !important;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  outline: none;
+}
+
+.back-button:hover {
+  color: var(--yellow) !important;
+}
+
+/* Brand name or instructure tag */
+.brand-tag {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  color: #666;
+  font-weight: 500;
+  font-size: 0.7rem;
 }

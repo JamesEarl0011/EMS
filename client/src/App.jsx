@@ -20,6 +20,7 @@ import AddCourseOffering from "./pages/admin/misAdmin/AddCourseOffering";
 import CourseOffering from "./pages/admin/misAdmin/CourseOffering";
 import "./App.css";
 
+
 // * Main App component
 function App() {
   return (
@@ -32,12 +33,12 @@ function App() {
         <Route
           path="/students/*"
           element={
-            <ProtectedRoute allowedRole="student">
+            // <ProtectedRoute allowedRole="student">
               <Routes>
                 <Route path="" element={<StudentDashboard />} />
                 <Route path="*" element={<Navigate to="/students" replace />} />
               </Routes>
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
 
@@ -45,7 +46,7 @@ function App() {
         <Route
           path="/teachers/*"
           element={
-            <ProtectedRoute allowedRole="teacher">
+            // <ProtectedRoute allowedRole="teacher">
               <Routes>
                 <Route path="" element={<TeacherDashboard />} />
                 <Route
@@ -58,7 +59,7 @@ function App() {
                 />
                 <Route path="*" element={<Navigate to="/teachers" replace />} />
               </Routes>
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
 
@@ -66,7 +67,7 @@ function App() {
         <Route
           path="/admin/mis/*"
           element={
-            <ProtectedRoute allowedRole="admin" allowedPosition="mis">
+            // <ProtectedRoute allowedRole="admin" allowedPosition="mis">
               <Routes>
                 <Route path="" element={<MISAdminDashboard />} />
                 <Route path="users/add-student" element={<AddStudent />} />
@@ -85,7 +86,7 @@ function App() {
                   element={<Navigate to="/admin/mis" replace />}
                 />
               </Routes>
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
 
@@ -93,7 +94,7 @@ function App() {
         <Route
           path="/admin/registrar/*"
           element={
-            <ProtectedRoute allowedRole="admin" allowedPosition="registrar">
+            // <ProtectedRoute allowedRole="admin" allowedPosition="registrar">
               <Routes>
                 <Route path="" element={<RegistrarAdminDashboard />} />
                 <Route
@@ -101,7 +102,7 @@ function App() {
                   element={<Navigate to="/admin/registrar" replace />}
                 />
               </Routes>
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
 
@@ -109,11 +110,11 @@ function App() {
         <Route
           path="/admin/accounting/*"
           element={
-            <ProtectedRoute allowedRole="admin" allowedPosition="accounting">
+            // <ProtectedRoute allowedRole="admin" allowedPosition="accounting">
               <Routes>
                 <Route path="" element={<AccountingAdminDashboard />} />
               </Routes>
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
 
