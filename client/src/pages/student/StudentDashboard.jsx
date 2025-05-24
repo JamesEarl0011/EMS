@@ -160,6 +160,7 @@ const StudentDashboard = () => {
 
     switch (activeTab) {
       case "profile":
+        case "profile":
         return (
           <div className="content-section">
             <div className="dashboard-header">
@@ -176,14 +177,37 @@ const StudentDashboard = () => {
                   <span>{studentData.name}</span>
                 </div>
                 <div className="info-group">
+                  <label>Email:</label>
+                  <span>{studentData.email}</span>
+                </div>
+                <div className="info-group">
+                  <label>Program:</label>
+                  <span>{studentData.studentInfo?.programCode}</span>
+                </div>
+                <div className="info-group">
+                  <label>Year Level:</label>
+                  <span>{studentData.studentInfo?.yearLevel}</span>
+                </div>
+                <div className="info-group">
                   <label>Contact Information:</label>
                   <span>
-                    {studentData.contactInformation || "Not provided"}
+                    {studentData.studentInfo?.demographicProfile
+                      ?.contactInformation?.[0]?.mobileNumber || "Not provided"}
                   </span>
                 </div>
                 <div className="info-group">
-                  <label>Address:</label>
-                  <span>{studentData.address || "Not provided"}</span>
+                  <label>Province Address:</label>
+                  <span>
+                    {studentData.studentInfo?.demographicProfile?.address?.[0]
+                      ?.provinceAddress || "Not provided"}
+                  </span>
+                </div>
+                <div className="info-group">
+                  <label>City Address:</label>
+                  <span>
+                    {studentData.studentInfo?.demographicProfile?.address?.[0]
+                      ?.cityAddress || "Not provided"}
+                  </span>
                 </div>
               </div>
             )}

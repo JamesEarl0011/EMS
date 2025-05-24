@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/axios";
-import "../../styles/UserManagement.css";
+import "../../../styles/UserManagement.css";
 
 const UserManagement = () => {
   const navigate = useNavigate();
@@ -68,24 +68,23 @@ const UserManagement = () => {
 
   return (
     <div className="user-management">
-      <div className="header">
-        <h2>User Management</h2>
-        <div className="add-buttons">
-          {" "}
+      <div className="dashboard-header">
+        <h1>User Management</h1>
+        <div className="user-add-buttons">
           <button
-            className="add-button student"
+            className="add-button"
             onClick={() => navigate("/admin/mis/users/add-student")}
           >
             Add Student
           </button>
           <button
-            className="add-button teacher"
+            className="add-button"
             onClick={() => navigate("/admin/mis/users/add-teacher")}
           >
             Add Teacher
           </button>
           <button
-            className="add-button admin"
+            className="add-button"
             onClick={() => navigate("/admin/mis/users/add-admin")}
           >
             Add Admin
@@ -95,7 +94,7 @@ const UserManagement = () => {
 
       {error && <div className="error-message">{error}</div>}
 
-      <div className="users-table-container">
+      <div className="table-container">
         <table className="users-table">
           <thead>
             <tr>
@@ -108,33 +107,45 @@ const UserManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.studentId || user.facultyId || user.adminId}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>
-                  {user.role === "admin"
-                    ? `${user.role} (${user.adminInfo?.position})`
-                    : user.role}
-                </td>
-                <td>{user.isActive ? "Active" : "Inactive"}</td>
-                <td>
-                  <button
-                    className="edit-button"
-                    onClick={() => handleEdit(user)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="delete-button"
-                    onClick={() => handleDelete(user)}
-                  >
-                    Delete
-                  </button>
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan="6" style={{ textAlign: "center", padding: "2rem" }}>
+                  No users found. Add a new user to get started.
                 </td>
               </tr>
-            ))}
+            ) : (
+              users.map((user) => (
+                <tr key={user.id || user.studentId || user.facultyId || user.adminId}>
+                  <td>{user.studentId || user.facultyId || user.adminId}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    {user.role === "admin"
+                      ? `${user.role} (${user.adminInfo?.position || "N/A"})`
+                      : user.role}
+                  </td>
+                  <td>{user.isActive ? "Active" : "Inactive"}</td>
+                  <td>
+                    <div className="action-buttons">
+                      <button
+                        onClick={() => handleEdit(user)}
+                        className="edit-btn"
+                        title="Edit user"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(user)}
+                        className="delete-btn"
+                        title="Delete user"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

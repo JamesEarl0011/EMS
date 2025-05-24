@@ -4,6 +4,7 @@
   --secondary: #fff;
   --error: #c53030;
   --yellow: #f3e81b;
+  --font: Avenir;
 }
 
 body {
@@ -66,6 +67,7 @@ body {
   margin: 0.25rem 0 1rem 0;
   font-weight: 600;
   font-size: 1.5rem;
+  font-family: var(--font);
 }
 
 /* Error message */

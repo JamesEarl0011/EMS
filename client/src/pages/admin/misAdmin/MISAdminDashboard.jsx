@@ -81,7 +81,9 @@ const MISAdminDashboard = () => {
       </div>
 
       {/* * Main content area */}
-      <div className="admin-main-content">{renderActiveComponent()}</div>
+      <div className="admin-main-content">
+        {renderActiveComponent()}
+      </div>
     </div>
   );
 };

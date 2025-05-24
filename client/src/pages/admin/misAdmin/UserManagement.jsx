@@ -122,21 +122,21 @@ const UserManagement = () => {
       </div>
 
       {error && <div className="error-message">{error}</div>}
-
-      <div className="table-container">
-        <table className="users-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
+    <div className="table-container">
+      <table className="users-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.length > 0 ? (
+            users.map((user) => (
               <tr key={user.id}>
                 <td>{user.studentId || user.facultyId || user.adminId}</td>
                 <td>{user.name}</td>
@@ -164,9 +164,16 @@ const UserManagement = () => {
                   </div>
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6" className="empty-message">
+                No users found. Add a new user to get started.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
       </div>
     </div>
   );
